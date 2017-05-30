@@ -48,6 +48,11 @@ class Deck extends Component {
     }
   }
 
+  componentWillUpdate() {
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    LayoutAnimation.spring();
+  }
+
   forceSwipe = (direction = 'left') => {
     const directions = {
       'left': -SCREEN_WIDTH,
@@ -96,6 +101,10 @@ class Deck extends Component {
 
   renderCards() {
     return this.props.data.map((item, index) => {
+      if (index < this.state.index) {
+        return null;
+      }
+
       if (index === this.state.index) {
         return (
           <Animated.View
